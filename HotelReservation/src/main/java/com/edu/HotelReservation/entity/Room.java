@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,6 +18,27 @@ public class Room {
      private String noOfBed;
      private double roomFare;
      private boolean status;
+     
+     @OneToOne(mappedBy="room")
+     private Reservation reservation;
+     
+     
+	public Reservation getReservation() {
+		return reservation;
+	}
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
+	}
+	
+	public Room(long roomId, String roomNo, String noOfBed, double roomFare, boolean status, Reservation reservation) {
+		super();
+		this.roomId = roomId;
+		this.roomNo = roomNo;
+		this.noOfBed = noOfBed;
+		this.roomFare = roomFare;
+		this.status = status;
+		this.reservation = reservation;
+	}
 	public long getRoomId() {
 		return roomId;
 	}
@@ -61,7 +84,7 @@ public class Room {
 	@Override
 	public String toString() {
 		return "Room [roomId=" + roomId + ", roomNo=" + roomNo + ", noOfBed=" + noOfBed + ", roomFare=" + roomFare
-				+ ", status=" + status + "]";
+				+ ", status=" + status + ", reservation=" + reservation + "]";
 	}
 	
      

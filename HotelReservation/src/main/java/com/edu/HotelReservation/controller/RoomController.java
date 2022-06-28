@@ -1,6 +1,7 @@
 package com.edu.HotelReservation.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +36,7 @@ public class RoomController {
     	return new ResponseEntity<Room> (roomService.saveRoom(room),HttpStatus.CREATED);
     }
     @GetMapping ("/{id}")
-    public Room getRoomById(@PathVariable ("id") long id)
+    public Optional<Room> getRoomById(@PathVariable ("id") long id)
     {
     	return roomService.getRoomById(id);
     }
@@ -50,7 +51,7 @@ public class RoomController {
     	return new ResponseEntity<String> (roomService.deleteRoom(id),HttpStatus.OK);
     }
     @GetMapping("/getRoomByRoomNo/{roomNo}")
-    public Room getRoomByRoomNo(@PathVariable ("roomNo") String roomNo)
+    public List<Room> getRoomByRoomNo(@PathVariable ("roomNo") String roomNo)
     {
     	return roomService.getRoomByRoomNo(roomNo);
     }

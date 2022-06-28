@@ -1,6 +1,7 @@
 package com.edu.HotelReservation.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +38,7 @@ public class ReservationController {
 	}
 	
 	@GetMapping("/{id}")
-	public Reservation getReservationById(@PathVariable ("id") long id)
+	public Optional<Reservation> getReservationById(@PathVariable ("id") long id)
 	{
 		return reservationService.getReservationById(id);
 	}

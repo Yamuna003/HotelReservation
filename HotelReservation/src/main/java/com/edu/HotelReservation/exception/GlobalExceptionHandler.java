@@ -25,5 +25,11 @@ public class GlobalExceptionHandler {
 	 {
 		 return new ResponseEntity<Object> ("Given Name is not avaiable!",HttpStatus.NOT_FOUND);
 	 }
+	 
+	 @ExceptionHandler (NoRoomFoundFromGivenIdException.class)
+	 public ResponseEntity<Object> handleNoRoomFoundFromGivenIdException()
+	 {
+		 return new ResponseEntity<Object> ("No room found from given room no",HttpStatus.NOT_FOUND);
+	 }
 
 }

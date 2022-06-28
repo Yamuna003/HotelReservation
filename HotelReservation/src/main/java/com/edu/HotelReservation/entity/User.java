@@ -1,11 +1,18 @@
 package com.edu.HotelReservation.entity;
 
+import java.util.List;
+
+
 import javax.annotation.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+
+
 
 @Entity
 @Table(name="userTbl")
@@ -13,6 +20,9 @@ public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long userId;
+	
+
+  
 	private String firstName;
 	private String lastName;
 	private String contactNo;
@@ -21,6 +31,34 @@ public class User {
 	private String password;
 	private String emailId;
 	private String address;
+	
+	@OneToMany(mappedBy="user")
+	private List<Reservation> reservation;
+	
+	
+	public List<Reservation> getReservation() {
+		return reservation;
+	}
+	public void setReservation(List<Reservation> reservation) {
+		this.reservation = reservation;
+	}
+	
+	
+	public User(long userId, String firstName, String lastName, String contactNo, String adharNo, String userName,
+			String password, String emailId, String address, List<Reservation> reservation) {
+		super();
+		this.userId = userId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.contactNo = contactNo;
+		this.adharNo = adharNo;
+		this.userName = userName;
+		this.password = password;
+		this.emailId = emailId;
+		this.address = address;
+		this.reservation = reservation;
+	}
+	
 	public long getUserId() {
 		return userId;
 	}
@@ -96,7 +134,7 @@ public class User {
 	public String toString() {
 		return "User [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", contactNo="
 				+ contactNo + ", adharNo=" + adharNo + ", userName=" + userName + ", password=" + password
-				+ ", emailId=" + emailId + ", address=" + address + "]";
+				+ ", emailId=" + emailId + ", address=" + address + ", reservation=" + reservation + "]";
 	}
 	
           

@@ -23,6 +23,6 @@ public interface UserService {
 
 	List<User> getUserByFullName(String firstName, String lastName);
 
-	List<User> getUserByEmail(String email);
+	Optional<User> getUserByEmail(String email);
 
 }

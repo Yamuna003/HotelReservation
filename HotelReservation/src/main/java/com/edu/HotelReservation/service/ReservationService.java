@@ -1,6 +1,7 @@
 package com.edu.HotelReservation.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 
@@ -14,7 +15,7 @@ public interface ReservationService {
 
 	Reservation saveRservation(Reservation reservation);
 
-	Reservation getReservationById(long id);
+	Optional<Reservation> getReservationById(long id);
 
 	Reservation updateReservation(long id, Reservation reservation);
 

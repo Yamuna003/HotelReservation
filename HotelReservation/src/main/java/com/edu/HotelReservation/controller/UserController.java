@@ -70,7 +70,7 @@ public class UserController {
 	}
 	 
 	@GetMapping("/GetUserByEmail/{emailId}")
-	public List<User> getUserbyEmail(@PathVariable ("emailId") String emailId)
+	public Optional<User> getUserbyEmail(@PathVariable ("emailId") String emailId)
 	{
 		return userService.getUserByEmail(emailId);
 	}

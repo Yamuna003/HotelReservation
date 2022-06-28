@@ -1,12 +1,15 @@
 package com.edu.HotelReservation.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.edu.HotelReservation.entity.Room;
+import com.edu.HotelReservation.exception.GivenIdNotFoundException;
 import com.edu.HotelReservation.exception.NoRecordFoundException;
+import com.edu.HotelReservation.exception.NoRoomFoundFromGivenIdException;
 import com.edu.HotelReservation.exception.ResourceNotFoundException;
 import com.edu.HotelReservation.repository.RoomRepository;
 
@@ -42,17 +45,23 @@ public class RoomServiceImpl implements RoomService{
 	}
 
 	@Override
-	public Room getRoomById(long id) {
-		Room room = new Room();
-		room = roomRepository.findById(id).orElseThrow ( ()-> new ResourceNotFoundException ("Room", "id",id));
-		return room;
+	public Optional<Room> getRoomById(long id) {
+		Optional<Room> room =  roomRepository.findById(id);
+		if(room.isPresent())
+		{
+			return room;
+		}
+		else
+		{
+			throw new GivenIdNotFoundException();
+		}
 	}
 
 	@Override
 	public Room updateRoom(long id, Room room) {
 	
 		Room rooms = new Room();
-		rooms = roomRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Room", "id",id));
+		rooms = roomRepository.findById(id).orElseThrow(()-> new NoRecordFoundException());
 		rooms.setRoomNo(room.getRoomNo());
 		rooms.setNoOfBed(room.getNoOfBed());
 		rooms.setRoomFare(room.getRoomFare());
@@ -64,27 +73,44 @@ public class RoomServiceImpl implements RoomService{
 	@Override
 	public String deleteRoom(long id) {
 		Room room = new Room();
-		room = roomRepository.findById(id).orElseThrow( ()-> new ResourceNotFoundException("Room","id",id));
+		room = roomRepository.findById(id).orElseThrow( ()-> new NoRecordFoundException());
 		roomRepository.deleteById(id);
 		return "Record is deleted successfully";
 	}
 
 	@Override
-	public Room getRoomByRoomNo(String roomNo) {
+	public List<Room> getRoomByRoomNo(String roomNo) {
 		
-		return roomRepository.getRoomByRoomNo(roomNo);
+		List <Room> room = roomRepository.getRoomByRoomNo(roomNo);
+		if(room.isEmpty())
+		{
+			throw new NoRoomFoundFromGivenIdException();
+		}
+		else
+		{
+			return room;
+		}
 	}
 
 	@Override
 	public List<Room> getRoomByNoOfBed(String noOfBed) {
 		
-		return roomRepository.getRoomByNoOfBed(noOfBed);
+		List<Room> room = roomRepository.getRoomByNoOfBed(noOfBed);
+		if(room.isEmpty())
+		{
+			throw new NoRecordFoundException();
+		}
+		else
+		{
+			return room;
+		}
 	}
 
 	@Override
 	public List<Room> getRoomByStatus(boolean status) {
 		
 		return roomRepository.getRoomByStatus(status);
+		
 	}
 
 	

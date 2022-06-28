@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String deleteUser(long id) {
 		User user = new User();
-		user = userRepository.findById(id).orElseThrow( ()-> new ResourceNotFoundException("User", "id",id));
+		user = userRepository.findById(id).orElseThrow( ()-> new NoRecordFoundException());
 		userRepository.deleteById(id);
 		
 		return "Record is deleted successfully";
@@ -136,9 +136,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> getUserByEmail(String emailId) {
+	public Optional<User> getUserByEmail(String emailId) {
 		
-		List<User> user = userRepository.findByEmailId(emailId);
+		Optional<User> user = userRepository.findByEmailId(emailId);
 		if(user.isEmpty())
 		{
 			throw new NoRecordFoundException();
@@ -148,6 +148,8 @@ public class UserServiceImpl implements UserService {
 			return user;
 		}
 	}
+	
+	
 
 	
 

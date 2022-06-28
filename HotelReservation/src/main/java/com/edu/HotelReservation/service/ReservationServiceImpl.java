@@ -1,12 +1,14 @@
 package com.edu.HotelReservation.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.edu.HotelReservation.entity.Reservation;
+import com.edu.HotelReservation.exception.GivenIdNotFoundException;
 import com.edu.HotelReservation.exception.NoRecordFoundException;
 import com.edu.HotelReservation.exception.ResourceNotFoundException;
 import com.edu.HotelReservation.repository.ReservationRepository;
@@ -43,16 +45,23 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public Reservation getReservationById(long id) {
-		Reservation reservation = new Reservation();
-		reservation = reservationRepository.findById(id).orElseThrow( ()-> new ResourceNotFoundException ("Reservation","id",id));
-		return reservation;
+	public Optional<Reservation> getReservationById(long id) {
+		Optional<Reservation> reservation = reservationRepository.findById(id);
+		if(reservation.isPresent())
+		{
+			return reservation;
+		}
+		else
+		{
+			throw new GivenIdNotFoundException();
+		}
+		
 	}
 
 	@Override
 	public Reservation updateReservation(long id, Reservation reservation) {
 		Reservation reservations = new Reservation();
-		reservations = reservationRepository.findById(id).orElseThrow ( ()-> new ResourceNotFoundException ("Rervation","id",id));
+		reservations = reservationRepository.findById(id).orElseThrow ( ()-> new NoRecordFoundException());
 		reservations.setStayDays(reservation.getStayDays());
 		reservations.setNoOfGuest(reservation.getNoOfGuest());
 		reservations.setCheckInDateTime(reservation.getCheckInDateTime());
@@ -64,7 +73,7 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public String deleteReservation(long id) {
 	     Reservation reservation = new Reservation();
-	     reservation = reservationRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Reservation","id",id));
+	     reservation = reservationRepository.findById(id).orElseThrow(()-> new NoRecordFoundException());
 	     reservationRepository.deleteById(id);
 		return "Record is deleted successfully";
 	}

@@ -12,7 +12,7 @@ public interface RoomRepository extends JpaRepository <Room, Long> {
 
 	
 	@Query ("select r from Room r where r.roomNo= :roomNo")
-	Room getRoomByRoomNo(@Param ("roomNo") String roomNo);
+	List<Room> getRoomByRoomNo(@Param ("roomNo") String roomNo);
 
 	@Query ("select r from Room r where r.noOfBed= :noOfBed")
 	List<Room> getRoomByNoOfBed(@Param ("noOfBed") String noOfBed);
