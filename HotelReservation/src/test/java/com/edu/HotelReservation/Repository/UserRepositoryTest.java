@@ -1,5 +1,7 @@
 package com.edu.HotelReservation.Repository;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,14 +24,16 @@ public class UserRepositoryTest {
 	@Autowired
 	private UserRepository userRepository;
 	
-	 @Test
+	/*@Test
 	public void saveUserTest()
 	{
+		
 		User user = userRepository.save(new User(39,"rama","prabha","9500732378","3395839573","rama","palani@12","ramaprabha@gmail.com","36,c LIC Colony"));
 		
 		Assertions.assertThat(user.getUserId()).isGreaterThan(0);
 	}
-	
+	*/
+	 
 	@Test
 	public void getUserTest()
 	{

@@ -36,8 +36,8 @@ public class RoomRepositoryTest {
 	@Test
 	public void getRoomTest()
 	{
-		Room room = roomRepository.findById(54L).get();
-		Assertions.assertThat(room.getRoomId()).isEqualTo(54L);
+		Room room = roomRepository.findById(152L).get();
+		Assertions.assertThat(room.getRoomId()).isEqualTo(152L);
 				
 	}
 	
@@ -63,10 +63,10 @@ public class RoomRepositoryTest {
 	@Test
 	public void deleteRoomTest()
 	{
-		Room room = roomRepository.findById(57L).get();
+		Room room = roomRepository.findById(48L).get();
 		roomRepository.delete(room);
 		Room rooms = null;
-        Optional<Room> room1 = roomRepository.findById(57L);
+        Optional<Room> room1 = roomRepository.findById(48L);
         if(room1.isPresent())
         {
         	rooms = room1.get();

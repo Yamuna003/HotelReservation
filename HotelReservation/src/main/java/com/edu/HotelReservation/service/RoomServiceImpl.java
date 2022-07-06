@@ -1,6 +1,8 @@
 package com.edu.HotelReservation.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import com.edu.HotelReservation.entity.Room;
 import com.edu.HotelReservation.exception.GivenIdNotFoundException;
 import com.edu.HotelReservation.exception.NoRecordFoundException;
 import com.edu.HotelReservation.exception.NoRoomFoundFromGivenIdException;
+import com.edu.HotelReservation.exception.RecordAlreadyExistException;
 import com.edu.HotelReservation.exception.ResourceNotFoundException;
 import com.edu.HotelReservation.repository.RoomRepository;
 
@@ -41,7 +44,18 @@ public class RoomServiceImpl implements RoomService{
 	@Override
 	public Room saveRoom(Room room) {
 		
-		return roomRepository.save(room) ;
+		List<Room> room1 = roomRepository.getRoomByRoomNo(room.getRoomNo());
+		if(!room1.isEmpty())
+		{
+			throw new RecordAlreadyExistException();
+			
+		}
+		else
+		{
+			return roomRepository.save(room);
+		}
+			
+		
 	}
 
 	@Override
@@ -112,6 +126,20 @@ public class RoomServiceImpl implements RoomService{
 		return roomRepository.getRoomByStatus(status);
 		
 	}
+
+	@Override
+	public Map<Object, Object> getRoomGroupByStatus() {
+		List<Object[]> objects = roomRepository.getRoomGroupByStatus();
+		Map<Object,Object> map = new HashMap();
+		for(Object[] obj :objects)
+		{
+			map.put(obj[0], obj[1]);
+			
+		}
+		return map;
+	}
+
+	
 
 	
 	

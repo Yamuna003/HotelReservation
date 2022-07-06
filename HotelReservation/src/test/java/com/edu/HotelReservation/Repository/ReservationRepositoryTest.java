@@ -1,5 +1,7 @@
 package com.edu.HotelReservation.Repository;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -24,13 +26,14 @@ public class ReservationRepositoryTest {
 	@Autowired
 	private ReservationRepository reservationRepository;
 	
-	@Test
+ @Test
 	public void saveReservationTest()
 	{
-		Date d1 = new Date(2022,04,03);
-		Date d2 = new Date(2022,04,06);
-		
-		Reservation reservation = reservationRepository.save(new Reservation (301,3,3,d1,d2));
+	 LocalDateTime now = LocalDateTime.now();
+	 
+		LocalDateTime d = LocalDateTime.of(2022,Month.JULY,29,19,30,40);
+		LocalDateTime d1 = LocalDateTime.of(2022, Month.JULY,31,19,30,40);
+		Reservation reservation = reservationRepository.save(new Reservation (301,3,now,4,d,d1));
 		Assertions.assertThat(reservation.getreservId()).isGreaterThan(0);
 		
 	}
@@ -38,8 +41,8 @@ public class ReservationRepositoryTest {
 	@Test
 	public void getReservationTest()
 	{
-		Reservation reservation = reservationRepository.findById(68L).get();
-		Assertions.assertThat(reservation.getreservId()).isEqualTo(68L);
+		Reservation reservation = reservationRepository.findById(102L).get();
+		Assertions.assertThat(reservation.getreservId()).isEqualTo(102L);
 	}
 	
 	@Test
@@ -52,7 +55,7 @@ public class ReservationRepositoryTest {
 	@Test
 	public void updateReservationTest()
 	{
-		Reservation reservation = reservationRepository.findById(68L).get();
+		Reservation reservation = reservationRepository.findById(102L).get();
 		reservation.setNoOfGuest(5);
 		Reservation updated= reservationRepository.save(reservation);
 		Assertions.assertThat(updated.getNoOfGuest()).isEqualTo(5);
@@ -62,10 +65,10 @@ public class ReservationRepositoryTest {
 	@Test
 	public void deleteReservationTest()
 	{
-		Reservation reservation = reservationRepository.findById(20L).get();
+		Reservation reservation = reservationRepository.findById(98L).get();
 		reservationRepository.delete(reservation);
 		Reservation reservations = null;
-		Optional<Reservation> reservation1 = reservationRepository.findById(20L);
+		Optional<Reservation> reservation1 = reservationRepository.findById(80L);
 		if(reservation1.isPresent())
 		{
 			reservations = reservation1.get();

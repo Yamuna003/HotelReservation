@@ -1,6 +1,7 @@
 package com.edu.HotelReservation.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,4 +66,11 @@ public class RoomController {
     {
     	return roomService.getRoomByStatus(status);
     }
+    
+    @GetMapping("/getRoomGroupByStatus")
+    public ResponseEntity<Map<Object,Object>> getRoomGroupByStatus()
+    {
+    	return new ResponseEntity<Map<Object,Object>> (roomService.getRoomGroupByStatus(),HttpStatus.OK);
+    }
+   
 }

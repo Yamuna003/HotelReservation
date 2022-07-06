@@ -1,28 +1,44 @@
 package com.edu.HotelReservation.entity;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "roomTbl")
 public class Room {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-     private long roomId;
+	@GeneratedValue( generator= "seqence" ,strategy=GenerationType.AUTO)
+	@SequenceGenerator(name ="seqence", initialValue = 101)
+	private long roomId;
+	@Column(nullable = false)
+	@NotBlank (message = "Please fill the room number")
      private String roomNo;
+	@Column(nullable = false)
+	@NotBlank (message = "Please fill the number of bed")
+	@Max(value=4,message="Number of beds must be equal to 4 or less")
      private String noOfBed;
      private double roomFare;
      private boolean status;
      
      @OneToOne(mappedBy="room")
+     @JsonIgnoreProperties("room")
      private Reservation reservation;
      
      
+
 	public Reservation getReservation() {
 		return reservation;
 	}
@@ -30,7 +46,7 @@ public class Room {
 		this.reservation = reservation;
 	}
 	
-	public Room(long roomId, String roomNo, String noOfBed, double roomFare, boolean status, Reservation reservation) {
+	public Room(long roomId,  String roomNo, String noOfBed, double roomFare, boolean status,Reservation reservation) {
 		super();
 		this.roomId = roomId;
 		this.roomNo = roomNo;

@@ -11,6 +11,7 @@ import com.edu.HotelReservation.entity.User;
 import com.edu.HotelReservation.exception.GivenIdNotFoundException;
 import com.edu.HotelReservation.exception.NameNotFoundException;
 import com.edu.HotelReservation.exception.NoRecordFoundException;
+import com.edu.HotelReservation.exception.RecordAlreadyExistException;
 import com.edu.HotelReservation.exception.ResourceNotFoundException;
 import com.edu.HotelReservation.repository.UserRepository;
 
@@ -45,7 +46,15 @@ public class UserServiceImpl implements UserService {
 	@Override                                       
 	public User saveUser(User user) {
 		
-		return userRepository.save(user);
+		Optional<User> user1 = userRepository.findByEmailId(user.getEmailId());
+		if(!user1.isPresent())
+		{
+			return userRepository.save(user);
+		}
+		else
+		{
+		   throw new RecordAlreadyExistException();
+		}
 	}
 
 	@Override

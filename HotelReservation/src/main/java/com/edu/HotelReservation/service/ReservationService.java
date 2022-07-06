@@ -1,5 +1,7 @@
 package com.edu.HotelReservation.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +22,14 @@ public interface ReservationService {
 	Reservation updateReservation(long id, Reservation reservation);
 
 	String deleteReservation(long id);
+
+	List<Reservation> getReservationListByDate(LocalDateTime reservationDateAndTime);
+
+	List<Reservation> getReservationListByCheckInDate(LocalDateTime checkInDateTime);
+
+	List<Reservation> getReservationListByGivenRange(LocalDateTime checkInDateTime, LocalDateTime checkOutDateTime);
+
+	
 
 	
 
