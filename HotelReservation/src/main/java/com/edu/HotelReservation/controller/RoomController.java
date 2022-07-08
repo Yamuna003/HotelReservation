@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +34,7 @@ public class RoomController {
 		return roomService.getRoomList();
 	}
     @PostMapping
-    public ResponseEntity<Room> saveRoom(@RequestBody Room room)
+    public ResponseEntity<Room> saveRoom(@Valid @RequestBody Room room)
     {
     	return new ResponseEntity<Room> (roomService.saveRoom(room),HttpStatus.CREATED);
     }

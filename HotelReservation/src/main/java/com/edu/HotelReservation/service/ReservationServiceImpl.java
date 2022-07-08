@@ -137,6 +137,19 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 	}
 
+	@Override
+	public List<Reservation> getReservationByUserId(long userId) {
+	List<Reservation> reservations = reservationRepository.getReservationByUserId(userId);
+	if(reservations.isEmpty())
+	{
+		throw new NoRecordFoundException();
+	}
+	else
+	{
+		return reservations;
+	}
+	}
+
 	
 
 	

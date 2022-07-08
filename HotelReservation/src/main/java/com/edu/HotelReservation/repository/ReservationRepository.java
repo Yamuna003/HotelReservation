@@ -22,9 +22,11 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 	@Query ("select r from Reservation r where checkInDateTime between :checkInDateTime and :checkOutDateTime")
 	List<Reservation> getReservationListByGivenRange(@Param ("checkInDateTime") LocalDateTime checkInDateTime,@Param("checkOutDateTime") LocalDateTime checkOutDateTime);
 
+	@Query ("select r from Reservation r where user.userId= :userId")
+	List<Reservation> getReservationByUserId(@Param ("userId") long userId);
+
 	
-//	@Query ("select r from Reservation r where r.reservationDateAndTime= :reservationDateAndTime")
-	//List<Reservation> getReservationListByDate(@Param ("reservationDateAndTime") LocalDate reservationDateAndTime);
+
 
 	
 	

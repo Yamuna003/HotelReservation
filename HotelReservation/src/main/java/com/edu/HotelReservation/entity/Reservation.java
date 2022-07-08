@@ -1,6 +1,7 @@
-
+                                                                                                                                                                                                                                                                                                                                       
 package com.edu.HotelReservation.entity;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 
 
@@ -33,14 +34,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Reservation {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@SequenceGenerator(name="seq", initialValue=201)
+	@GeneratedValue(generator ="sequ5" ,strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name="sequ5", initialValue=1001)
 	private long reservId;
 	private int noOfGuest;
-	//@DateTimeFormat(pattern="yyyy-MM-dd hh:ss")
 	private LocalDateTime reservationDateAndTime;
 	private int stayDays;
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+	
 	private LocalDateTime checkInDateTime;
 	private LocalDateTime checkOutDateTime;
 	
@@ -49,7 +49,7 @@ public class Reservation {
 	@JsonIgnoreProperties("reservation")
 	private User user;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name="roomId")
 	@JsonIgnoreProperties("reservation")
 	private Room room;
@@ -57,6 +57,7 @@ public class Reservation {
 	@PrePersist
 	public void addCheckInDate()
 	{
+		
 		LocalDateTime now = LocalDateTime.now();
 		this.reservationDateAndTime=now;
 		this.checkOutDateTime = ((LocalDateTime) this.checkInDateTime).plusDays(stayDays);

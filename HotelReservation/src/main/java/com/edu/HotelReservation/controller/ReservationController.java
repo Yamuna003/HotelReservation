@@ -64,8 +64,7 @@ public class ReservationController {
 	@GetMapping("/GetReservationByDate/{reservationDateAndTime}")
 	public List<Reservation> getReservationListByDate(@PathVariable ("reservationDateAndTime") String reservationDateAndTime)
 	{
-		//System.out.println(reservationDateAndTime);
-		//DateTimeFormatter format =  DateTimeFormatter.ofPattern("yyyy-MM-dd hh:ss");
+		
 		return reservationService.getReservationListByDate(LocalDateTime.parse(reservationDateAndTime));
 		
 	}
@@ -79,6 +78,12 @@ public class ReservationController {
 	public List<Reservation> getReservationListByGivenRange(@PathVariable ("checkInDateTime") String checkInDateTime, @PathVariable ("checkOutDateTime") String checkOutDateTime) {
 	
 		return reservationService.getReservationListByGivenRange(LocalDateTime.parse(checkInDateTime),LocalDateTime.parse(checkOutDateTime));
+	}
+	
+	@GetMapping("/getReservationByUserId/{userId}")
+	public List<Reservation> getReservationByUserId(@PathVariable ("userId") long userId)
+	{
+		return reservationService.getReservationByUserId(userId);
 	}
 	
 

@@ -24,7 +24,7 @@ public class UserRepositoryTest {
 	@Autowired
 	private UserRepository userRepository;
 	
-	/*@Test
+	@Test
 	public void saveUserTest()
 	{
 		
@@ -32,13 +32,13 @@ public class UserRepositoryTest {
 		
 		Assertions.assertThat(user.getUserId()).isGreaterThan(0);
 	}
-	*/
+	
 	 
 	@Test
 	public void getUserTest()
 	{
-		User user = userRepository.findById(40L).get();
-		Assertions.assertThat(user.getUserId()).isEqualTo(40L);
+		User user = userRepository.findById(1L).get();
+		Assertions.assertThat(user.getUserId()).isEqualTo(1L);
 		
 	}
 	 @Test
@@ -51,7 +51,7 @@ public class UserRepositoryTest {
 	 @Test
 	 public void updatedUserTest()
 	 {
-		 User user = userRepository.findById(40L).get();
+		 User user = userRepository.findById(1L).get();
 		  user.setEmailId("rama@gmail.com");
 		   User updated = userRepository.save(user);
 		   
@@ -62,7 +62,7 @@ public class UserRepositoryTest {
     @Test
 	public void deleteUserTest()
 	{
-		User user = userRepository.findById(59L).get();
+		User user = userRepository.findById(152L).get();
 		userRepository.delete(user);
 		User users = null;
 		Optional<User> user1 = userRepository.findByEmailId("ramaprabha@gmail.com");

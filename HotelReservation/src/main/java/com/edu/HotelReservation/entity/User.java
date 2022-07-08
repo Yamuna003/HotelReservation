@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Generated;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,8 +29,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name="userTbl")
 public class User {
 	@Id
-	@GeneratedValue( generator = "seq", strategy=GenerationType.AUTO)
-	@SequenceGenerator(name ="seq" , initialValue=1)
+	@GeneratedValue( generator = "seq5", strategy=GenerationType.SEQUENCE)
+	@SequenceGenerator(name ="seq5" , initialValue=11)
 	private long userId;
 	@Column(nullable=false)
 	//@NotNull
@@ -160,6 +161,18 @@ public class User {
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	
+	public User(long userId, @NotBlank(message = "First name is mandatory") String firstName,
+			@NotBlank(message = "Last name is mandatory") String lastName,
+			@NotBlank(message = "Contact Number is mandatory") @Digits(integer = 10, message = "Contact Number must be 10 digits", fraction = 0) String contactNo,
+			@NotBlank(message = "Email is mandatory") @Email(message = "Invalid email id") String emailId) {
+		super();
+		this.userId = userId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.contactNo = contactNo;
+		this.emailId = emailId;
 	}
 	@Override
 	public String toString() {

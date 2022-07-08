@@ -29,6 +29,8 @@ public interface ReservationService {
 
 	List<Reservation> getReservationListByGivenRange(LocalDateTime checkInDateTime, LocalDateTime checkOutDateTime);
 
+	List<Reservation> getReservationByUserId(long userId);
+
 	
 
 	

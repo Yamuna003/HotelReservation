@@ -20,8 +20,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Table(name = "roomTbl")
 public class Room {
 	@Id
-	@GeneratedValue( generator= "seqence" ,strategy=GenerationType.AUTO)
-	@SequenceGenerator(name ="seqence", initialValue = 101)
+	@GeneratedValue( generator= "seqence3" ,strategy=GenerationType.SEQUENCE)
+	@SequenceGenerator(name ="seqence3", initialValue = 101)
 	private long roomId;
 	@Column(nullable = false)
 	@NotBlank (message = "Please fill the room number")
